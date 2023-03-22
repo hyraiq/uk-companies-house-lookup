@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MessDetectorOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCSFixerOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCodeSnifferOptionsConfiguration">
+    <option name="highlightLevel" value="WARNING" />
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PhpInterpreters">
+    <interpreters>
+      <interpreter id="0e312b63-4696-4f5a-b14d-4b9927ccdea9" name="php" home="docker-compose://DATA" debugger_id="php.debugger.XDebug">
+        <remote_data INTERPRETER_PATH="php" HELPERS_PATH="/opt/.phpstorm_helpers" INITIALIZED="false" VALID="true" RUN_AS_ROOT_VIA_SUDO="false" DOCKER_ACCOUNT_NAME="Docker" DOCKER_COMPOSE_SERVICE_NAME="php" DOCKER_REMOTE_PROJECT_PATH="/opt/project">
+          <type_data command="RUN" />
+          <dockerComposeConfigurationPaths>
+            <item value="$PROJECT_DIR$/docker-compose.yml" />
+          </dockerComposeConfigurationPaths>
+          <envs />
+        </remote_data>
+      </interpreter>
+    </interpreters>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />
+  <component name="PhpStanOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <phpunit_by_interpreter interpreter_id="0e312b63-4696-4f5a-b14d-4b9927ccdea9" />
+    </phpunit_settings>
+  </component>
+  <component name="PsalmOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+</project>
