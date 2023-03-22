@@ -1,12 +1,20 @@
 name: Setup PHP
+
 description: Setup PHP build
+
+inputs:
+    php-version:
+        description: 'PHP version to use, default to 8.0'
+        required: false
+        default: '8.0'
+
 runs:
     using: composite
     steps:
         -   name: Install PHP
             uses: shivammathur/setup-php@v2
             with:
-                php-version: '8.0'
+                php-version: ${{ inputs.php-version }}
         -   id: get-composer-cache-directory
             name: Get Composer caches directory path
             run: echo "::set-output name=dir::$(php composer.phar config cache-files-dir)"
