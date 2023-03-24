@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Hyra\UkCompaniesHouseLookup\Model;
 
-use Hyra\Integrations\Agave\Model\AconexUpdatedDocumentModel;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -43,6 +42,7 @@ final class CompanyResponse extends AbstractResponse
      * @var PreviousNamesResponse[]
      *
      * @Assert\All({
+     *
      *     @Assert\Type("Hyra\UkCompaniesHouseLookup\Model\PreviousNamesResponse")
      * })
      */

@@ -46,7 +46,7 @@ final class ApiClientTest extends TestCase
     public function testClientInitialisedCorrectly(): void
     {
         $this->stubHttpClient->assertDefaultOptions([
-            'base_uri' => 'https://api.company-information.service.gov.uk/',
+            'base_uri'   => 'https://api.company-information.service.gov.uk/',
             'auth_basic' => [$this->apiKey],
         ]);
     }
@@ -104,13 +104,13 @@ final class ApiClientTest extends TestCase
         $response = $this->client->lookupNumber(self::BusinessNumber);
 
         $normalizedResponse = [
-            'company_name'          => $response->companyName,
-            'company_number'        => $response->companyNumber,
-            'type'                  => $response->type,
-            'company_status'        => $response->status,
-            'company_status_detail' => $response->statusDetail,
-            'date_of_creation'      => $response->dateOfCreation->format('Y-m-d'),
-            'jurisdiction'          => $response->jurisdiction,
+            'company_name'              => $response->companyName,
+            'company_number'            => $response->companyNumber,
+            'type'                      => $response->type,
+            'company_status'            => $response->status,
+            'company_status_detail'     => $response->statusDetail,
+            'date_of_creation'          => $response->dateOfCreation->format('Y-m-d'),
+            'jurisdiction'              => $response->jurisdiction,
             'registered_office_address' => [
                 'address_line_1' => $response->address?->addressLine1,
                 'address_line_2' => $response->address?->addressLine2,

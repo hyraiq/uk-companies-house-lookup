@@ -10,14 +10,13 @@ use Hyra\UkCompaniesHouseLookup\Exception\BusinessRegistryConnectionException;
 use Hyra\UkCompaniesHouseLookup\Exception\UnexpectedResponseException;
 use Hyra\UkCompaniesHouseLookup\Model\AbstractResponse;
 use Hyra\UkCompaniesHouseLookup\Model\CompanyResponse;
+use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\HttpClient\Exception\HttpExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Component\Serializer\Exception\ExceptionInterface as SerializerExceptionInterface;
-use Symfony\Flex\Response;
 
 final class ApiClient implements ApiClientInterface
 {
@@ -30,7 +29,7 @@ final class ApiClient implements ApiClientInterface
         string $apiKey,
     ) {
         $this->client = $client->withOptions([
-            'base_uri' => 'https://api.company-information.service.gov.uk/',
+            'base_uri'   => 'https://api.company-information.service.gov.uk/',
             'auth_basic' => [$apiKey],
         ]);
     }
@@ -43,8 +42,8 @@ final class ApiClient implements ApiClientInterface
 
         try {
             $response = $this->client->request('GET', \sprintf('/company/%s', $businessNumber))->getContent();
-        } catch (HttpExceptionInterface|TransportExceptionInterface $e) {
-            if ($e->getCode() === 404) {
+        } catch (HttpExceptionInterface | TransportExceptionInterface $e) {
+            if (404 === $e->getCode()) {
                 throw new BusinessNumberNotFoundException();
             }
 
@@ -62,7 +61,9 @@ final class ApiClient implements ApiClientInterface
 
     /**
      * @template T of AbstractResponse
+     *
      * @psalm-param    class-string<T> $type
+     *
      * @psalm-return   T
      *
      * @throws UnexpectedResponseException
@@ -71,7 +72,7 @@ final class ApiClient implements ApiClientInterface
     {
         try {
             /** @psalm-var T $model */
-            $model = $this->denormalizer->denormalize(json_decode($response), $type, 'json');
+            $model = $this->denormalizer->denormalize(\json_decode($response), $type, 'json');
         } catch (SerializerExceptionInterface $e) {
             throw new UnexpectedResponseException(
                 \sprintf('Unable to deserialize response "%s": %s', $response, $e->getMessage()),

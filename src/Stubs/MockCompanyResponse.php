@@ -12,33 +12,33 @@ final class MockCompanyResponse
     public static function valid(): array
     {
         return [
-            'type' => 'ltd',
-            'company_number' => '03120645',
-            'date_of_creation' => '1995-11-01',
-            'company_name' => 'RED BULL RACING LIMITED',
-            'jurisdiction' => 'england-wales',
-            'company_status' => 'active',
-            'company_status_detail' => null,
+            'type'                      => 'ltd',
+            'company_number'            => '03120645',
+            'date_of_creation'          => '1995-11-01',
+            'company_name'              => 'RED BULL RACING LIMITED',
+            'jurisdiction'              => 'england-wales',
+            'company_status'            => 'active',
+            'company_status_detail'     => null,
             'registered_office_address' => [
                 'address_line_1' => 'Building 2',
                 'address_line_2' => 'Bradbourne Drive Tilbrook',
-                'locality' => 'Milton Keynes',
-                'postal_code' => 'MK7 8AT',
-                'region' => null,
-                'country' => null,
+                'locality'       => 'Milton Keynes',
+                'postal_code'    => 'MK7 8AT',
+                'region'         => null,
+                'country'        => null,
             ],
             'previous_company_names' => [
                 [
-                    'name' => 'STEWART GRAND PRIX LIMITED',
-                    'ceased_on' => '2000-01-04',
-                    'effective_from' => '1995-11-01'
+                    'name'           => 'STEWART GRAND PRIX LIMITED',
+                    'ceased_on'      => '2000-01-04',
+                    'effective_from' => '1995-11-01',
                 ],
                 [
-                    'ceased_on' => '2004-11-16',
-                    'name' => 'JAGUAR RACING LIMITED',
-                    'effective_from' => '2000-01-04'
+                    'ceased_on'      => '2004-11-16',
+                    'name'           => 'JAGUAR RACING LIMITED',
+                    'effective_from' => '2000-01-04',
                 ],
-            ]
+            ],
         ];
     }
 
@@ -51,9 +51,9 @@ final class MockCompanyResponse
             'errors' => [
                 [
                     'error' => 'company-profile-not-found',
-                    'type' => 'ch:service'
-                ]
-            ]
+                    'type'  => 'ch:service',
+                ],
+            ],
         ];
     }
 }

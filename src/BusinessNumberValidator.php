@@ -14,7 +14,7 @@ final class BusinessNumberValidator
             return false;
         }
 
-        /**
+        /*
          * Regex sourced from the gist below but with a small adjustment of adding OE (overseas entity)
          *
          * @link https://gist.github.com/rob-murray/01d43581114a6b319034732bcbda29e1
