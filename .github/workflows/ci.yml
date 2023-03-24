@@ -14,6 +14,7 @@ jobs:
             -   uses: ./.github/actions/setup-php
             -   name: Build
                 run: make psalm-github
+
     phpstan:
         runs-on: ubuntu-latest
         steps:
@@ -21,6 +22,7 @@ jobs:
             -   uses: ./.github/actions/setup-php
             -   name: Build
                 run: make phpstan-github
+
     cs-fixer:
         runs-on: ubuntu-latest
         steps:
@@ -28,6 +30,7 @@ jobs:
             -   uses: ./.github/actions/setup-php
             -   name: Build
                 run: make fix-github
+
     phpunit:
         runs-on: ubuntu-latest
         strategy:
