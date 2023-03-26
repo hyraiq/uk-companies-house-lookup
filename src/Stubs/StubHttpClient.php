@@ -22,6 +22,8 @@ final class StubHttpClient implements HttpClientInterface
     private ?array $companyDetailsOptions = null;
 
     /**
+     * @psalm-suppress RedundantIdentityWithTrue
+     *
      * @param mixed[] $options
      */
     public function request(string $method, string $url, array $options = []): ResponseInterface
@@ -30,7 +32,6 @@ final class StubHttpClient implements HttpClientInterface
             throw new \LogicException('Not implemented: UK Companies House API client should only use GET requests');
         }
 
-        /* @psalm-suppress RedundantIdentityWithTrue */
         return match (true) {
             (bool) \preg_match('/^\/company\/(?:\d{8}|[A-Za-z]{2}\d{6})+$/i', $url) => $this->handleCompanyRequest($url, $options),
             default                                                                 => throw new \LogicException(
