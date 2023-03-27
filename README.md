@@ -7,8 +7,8 @@ The difference between validation and verification can be outlined as follows:
 
 - Validation uses a regular expression to check that a given number is a valid CRN. This _does not_ contact the API to
   ensure that the given CRN is assigned to a business
-- Verification contact the Companies House through their API to retrieve information registered against the CRN. It will
-  tell you if the CRN actually belongs to a business.
+- Verification contacts the Companies House through their API to retrieve information registered against the CRN. It
+  will tell you if the CRN actually belongs to a business.
 
 In order to use the API (only necessary for verification), you'll need to
 [register an account](https://identity.company-information.service.gov.uk/user/register) to receive an API key.
@@ -18,8 +18,8 @@ In order to use the API (only necessary for verification), you'll need to
 
 The SDK utilises the [Symfony Serializer](https://symfony.com/doc/current/components/serializer.html) and the
 [Symfony Validator](https://symfony.com/doc/current/components/validator.html) to deserialize and validate data returned
-from the API in order to provide valid [CompanyResponse](./src/Model/CompanyResponse.php) model. This means that if you
-receive a response from the SDK, it is guaranteed to be valid.
+from the API in order to provide a valid [CompanyResponse](./src/Model/CompanyResponse.php) model. This means that if
+you receive a response from the SDK, it is guaranteed to be valid.
 
 Invalid responses from the API fall into three categories, which are handled with exceptions:
 
