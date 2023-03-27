@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Hyra\UkCompaniesHouseLookup\Exception;
 
-class BusinessRegistryConnectionException extends \RuntimeException
+class NumberNotFoundException extends \RuntimeException
 {
     public function __construct(
-        string $message,
         \Throwable $previous = null
     ) {
         parent::__construct(
-            $message,
+            'Business number not found',
             0,
             $previous
         );

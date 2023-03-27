@@ -8,9 +8,9 @@ use Faker\Factory;
 use Faker\Generator;
 use Hyra\UkCompaniesHouseLookup\ApiClient;
 use Hyra\UkCompaniesHouseLookup\Dependencies;
-use Hyra\UkCompaniesHouseLookup\Exception\BusinessNumberInvalidException;
-use Hyra\UkCompaniesHouseLookup\Exception\BusinessNumberNotFoundException;
-use Hyra\UkCompaniesHouseLookup\Exception\BusinessRegistryConnectionException;
+use Hyra\UkCompaniesHouseLookup\Exception\ConnectionException;
+use Hyra\UkCompaniesHouseLookup\Exception\NumberInvalidException;
+use Hyra\UkCompaniesHouseLookup\Exception\NumberNotFoundException;
 use Hyra\UkCompaniesHouseLookup\Exception\UnexpectedResponseException;
 use Hyra\UkCompaniesHouseLookup\Stubs\MockCompanyResponse;
 use Hyra\UkCompaniesHouseLookup\Stubs\StubHttpClient;
@@ -53,7 +53,7 @@ final class ApiClientTest extends TestCase
 
     public function testLookupNumberInvalidNumberDoesNotUseApi(): void
     {
-        $this->expectException(BusinessNumberInvalidException::class);
+        $this->expectException(NumberInvalidException::class);
 
         $this->client->lookupNumber($this->faker->numerify('#####'));
 
@@ -64,7 +64,7 @@ final class ApiClientTest extends TestCase
     {
         $this->stubHttpClient->setStubResponse([], 500);
 
-        $this->expectException(BusinessRegistryConnectionException::class);
+        $this->expectException(ConnectionException::class);
 
         $this->client->lookupNumber(self::BusinessNumber);
     }
@@ -73,14 +73,14 @@ final class ApiClientTest extends TestCase
     {
         $this->stubHttpClient->setStubResponse(MockCompanyResponse::noBusinessNumberFound(), 404);
 
-        $this->expectException(BusinessNumberNotFoundException::class);
+        $this->expectException(NumberNotFoundException::class);
 
         $this->client->lookupNumber(self::BusinessNumber);
     }
 
     public function testLookupNumberWithInvalidBusinessNumber(): void
     {
-        $this->expectException(BusinessNumberInvalidException::class);
+        $this->expectException(NumberInvalidException::class);
 
         $this->client->lookupNumber('invalid');
     }

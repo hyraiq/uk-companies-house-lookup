@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hyra\UkCompaniesHouseLookup\Exception;
 
-class BusinessNumberInvalidException extends \RuntimeException
+class NumberInvalidException extends \RuntimeException
 {
     public function __construct(
         \Throwable $previous = null
     ) {
         parent::__construct(
-            'Invalid Business number',
+            'Invalid business number',
             0,
             $previous
         );

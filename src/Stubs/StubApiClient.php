@@ -6,8 +6,8 @@ namespace Hyra\UkCompaniesHouseLookup\Stubs;
 
 use Hyra\UkCompaniesHouseLookup\ApiClientInterface;
 use Hyra\UkCompaniesHouseLookup\BusinessNumberValidator;
-use Hyra\UkCompaniesHouseLookup\Exception\BusinessNumberInvalidException;
-use Hyra\UkCompaniesHouseLookup\Exception\BusinessNumberNotFoundException;
+use Hyra\UkCompaniesHouseLookup\Exception\NumberInvalidException;
+use Hyra\UkCompaniesHouseLookup\Exception\NumberNotFoundException;
 use Hyra\UkCompaniesHouseLookup\Model\CompanyResponse;
 
 final class StubApiClient implements ApiClientInterface
@@ -21,7 +21,7 @@ final class StubApiClient implements ApiClientInterface
     public function lookupNumber(string $businessNumber): CompanyResponse
     {
         if (false === BusinessNumberValidator::isValidNumber($businessNumber)) {
-            throw new BusinessNumberInvalidException();
+            throw new NumberInvalidException();
         }
 
         if (\array_key_exists($businessNumber, $this->companyResponses)) {
@@ -29,7 +29,7 @@ final class StubApiClient implements ApiClientInterface
         }
 
         if (\in_array($businessNumber, $this->notFoundBusinessNumbers, true)) {
-            throw new BusinessNumberNotFoundException();
+            throw new NumberNotFoundException();
         }
 
         throw new \LogicException(

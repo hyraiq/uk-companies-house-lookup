@@ -23,9 +23,9 @@ you receive a response from the SDK, it is guaranteed to be valid.
 
 Invalid responses from the API fall into three categories, which are handled with exceptions:
 
-- `BusinessRegistryConnectionException.php`: Unable to connect to the API, or the API returned an unexpected response
-- `BusinessNumberInvalidException.php`: The CRN is invalid (i.e. validation failed)
-- `BusinessNumberNotFoundException.php`: The CRN is valid, however it is not assigned to a business (i.e. verification failed)
+- `ConnectionException.php`: Unable to connect to the API, or the API returned an unexpected response
+- `NumberInvalidException.php`: The CRN is invalid (i.e. validation failed)
+- `NumberNotFoundException.php`: The CRN is valid, however it is not assigned to a business (i.e. verification failed)
 
 
 ## Usage
@@ -93,11 +93,11 @@ $number = '04264132';
 
 try {
     $response = $apiClient->lookupNumber($number);
-} catch (BusinessRegistryConnectionException $e) {
+} catch (ConnectionException $e) {
     die($e->getMessage())
-} catch (BusinessNumberInvalidException) {
+} catch (NumberInvalidException) {
     die('Invalid business number');
-} catch (BusinessNumberNotFoundException) {
+} catch (NumberNotFoundException) {
     die('Business number not found');
 }
 
@@ -118,13 +118,13 @@ use Hyra\UkCompaniesHouseLookup\Stubs\StubApiClient;
 
 $stubClient = new StubApiClient();
 
-$stubClient->lookupNumber(BusinessNumberFaker::invalidBusinessNumber()); // BusinessNumberInvalidException - Note, the stub still uses the validator
+$stubClient->lookupNumber(BusinessNumberFaker::invalidBusinessNumber()); // NumberInvalidException - Note, the stub still uses the validator
 
 $stubClient->lookupNumber(BusinessNumberFaker::validBusinessNumber()); // LogicException - You need to tell the stub how to respond to specific queries
 
 $businessNumber = BusinessNumberFaker::validBusinessNumber();
 $stubClient->addNotFoundBusinessNumbers($businessNumber);
-$stubClient->lookupNumber($businessNumber); // BusinessNumberNotFoundException
+$stubClient->lookupNumber($businessNumber); // NumberNotFoundException
 
 $businessNumber = BusinessNumberFaker::validBusinessNumber();
 $mockResponse = MockCompanyResponse::valid();

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Hyra\UkCompaniesHouseLookup;
 
-use Hyra\UkCompaniesHouseLookup\Exception\BusinessNumberInvalidException;
-use Hyra\UkCompaniesHouseLookup\Exception\BusinessNumberNotFoundException;
-use Hyra\UkCompaniesHouseLookup\Exception\BusinessRegistryConnectionException;
+use Hyra\UkCompaniesHouseLookup\Exception\ConnectionException;
+use Hyra\UkCompaniesHouseLookup\Exception\NumberInvalidException;
+use Hyra\UkCompaniesHouseLookup\Exception\NumberNotFoundException;
 use Hyra\UkCompaniesHouseLookup\Exception\UnexpectedResponseException;
 use Hyra\UkCompaniesHouseLookup\Model\AbstractResponse;
 use Hyra\UkCompaniesHouseLookup\Model\CompanyResponse;
@@ -37,17 +37,17 @@ final class ApiClient implements ApiClientInterface
     public function lookupNumber(string $businessNumber): CompanyResponse
     {
         if (false === BusinessNumberValidator::isValidNumber($businessNumber)) {
-            throw new BusinessNumberInvalidException();
+            throw new NumberInvalidException();
         }
 
         try {
             $response = $this->client->request('GET', \sprintf('/company/%s', $businessNumber))->getContent();
         } catch (HttpExceptionInterface | TransportExceptionInterface $e) {
             if (404 === $e->getCode()) {
-                throw new BusinessNumberNotFoundException();
+                throw new NumberNotFoundException();
             }
 
-            throw new BusinessRegistryConnectionException(
+            throw new ConnectionException(
                 \sprintf('Unable to connect to the Companies House API: %s', $e->getMessage()),
                 $e
             );
