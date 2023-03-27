@@ -15,6 +15,7 @@ runs:
             uses: shivammathur/setup-php@v2
             with:
                 php-version: ${{ inputs.php-version }}
+
         -   id: get-composer-cache-directory
             name: Get Composer caches directory path
             run: echo "::set-output name=dir::$(php composer.phar config cache-files-dir)"

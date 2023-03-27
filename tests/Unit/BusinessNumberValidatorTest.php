@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyra\Tests\AbnLookup\Unit;
+namespace Hyra\Tests\UkCompaniesHouseLookup\Unit;
 
 use Hyra\UkCompaniesHouseLookup\BusinessNumberValidator;
 use PHPUnit\Framework\TestCase;
@@ -12,21 +12,11 @@ class BusinessNumberValidatorTest extends TestCase
     /**
      * @dataProvider getValidTests
      */
-    public function testValidNumber(string $abn): void
+    public function testValidNumber(string $businessNumber): void
     {
-        $result = BusinessNumberValidator::isValidNumber($abn);
+        $result = BusinessNumberValidator::isValidNumber($businessNumber);
 
         static::assertTrue($result);
-    }
-
-    /**
-     * @dataProvider getInvalidTests
-     */
-    public function testInvalidNumber(string $abn): void
-    {
-        $result = BusinessNumberValidator::isValidNumber($abn);
-
-        static::assertFalse($result);
     }
 
     /**
@@ -42,6 +32,16 @@ class BusinessNumberValidatorTest extends TestCase
             'random 2'    => ['NI649790'], // Northern Ireland
             'random 3'    => ['OE017184'], // Overseas entity
         ];
+    }
+
+    /**
+     * @dataProvider getInvalidTests
+     */
+    public function testInvalidNumber(string $businessNumber): void
+    {
+        $result = BusinessNumberValidator::isValidNumber($businessNumber);
+
+        static::assertFalse($result);
     }
 
     /**
