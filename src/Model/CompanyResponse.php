@@ -42,10 +42,14 @@ final class CompanyResponse extends AbstractResponse
      * @var PreviousNamesResponse[]
      *
      * @Assert\All({
-     *
      *     @Assert\Type("Hyra\UkCompaniesHouseLookup\Model\PreviousNamesResponse")
      * })
      */
     #[SerializedName('previous_company_names')]
     public array $previousCompanyNames = [];
+
+    public function isActive(): bool
+    {
+        return 'active' === \mb_strtolower($this->status);
+    }
 }
