@@ -42,6 +42,7 @@ final class CompanyResponse extends AbstractResponse
      * @var PreviousNamesResponse[]
      *
      * @Assert\All({
+     *
      *     @Assert\Type("Hyra\UkCompaniesHouseLookup\Model\PreviousNamesResponse")
      * })
      */
