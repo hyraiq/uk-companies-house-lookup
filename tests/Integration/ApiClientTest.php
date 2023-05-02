@@ -12,6 +12,7 @@ use Hyra\UkCompaniesHouseLookup\Exception\ConnectionException;
 use Hyra\UkCompaniesHouseLookup\Exception\NumberInvalidException;
 use Hyra\UkCompaniesHouseLookup\Exception\NumberNotFoundException;
 use Hyra\UkCompaniesHouseLookup\Exception\UnexpectedResponseException;
+use Hyra\UkCompaniesHouseLookup\SicCodes;
 use Hyra\UkCompaniesHouseLookup\Stubs\MockCompanyResponse;
 use Hyra\UkCompaniesHouseLookup\Stubs\StubHttpClient;
 use PHPUnit\Framework\TestCase;
@@ -98,6 +99,7 @@ final class ApiClientTest extends TestCase
 
     public function testLookupNumberSuccess(): void
     {
+        /** @var array{sic_codes: string[]} $mockResponse */
         $mockResponse = MockCompanyResponse::valid();
         $this->stubHttpClient->setStubResponse($mockResponse);
 
@@ -131,9 +133,19 @@ final class ApiClientTest extends TestCase
                     'ceased_on'      => $response->previousCompanyNames[1]->ceasedOn?->format('Y-m-d'),
                 ],
             ],
+            'sic_codes' => $response->sicCodes,
         ];
 
         $this->stubHttpClient->assertCompanyEndpointCalled([]);
+
+        // The setter for sic_codes augments the response to add a description, so we have to do that here too
+        $mockResponse['sic_codes'] = \array_map(
+            fn (string $code): array => [
+                'code'        => $code,
+                'description' => SicCodes::getDescriptionByCode($code),
+            ],
+            $mockResponse['sic_codes']
+        );
 
         static::assertEqualsCanonicalizing($mockResponse, $normalizedResponse);
     }

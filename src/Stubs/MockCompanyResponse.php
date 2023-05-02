@@ -39,6 +39,9 @@ final class MockCompanyResponse
                     'effective_from' => '2000-01-04',
                 ],
             ],
+            'sic_codes' => [
+                '93199',
+            ],
         ];
     }
 
