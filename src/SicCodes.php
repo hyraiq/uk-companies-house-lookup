@@ -14,6 +14,13 @@ class SicCodes
     }
 
     /**
+     * The Companies House API only gives us SIC codes without any description.
+     * A csv file of the descriptions is published online (see link below) and
+     * as this list is rarely updated (last update in 2018), we hardcode it for
+     * speed and ease of use.
+     *
+     * @see https://www.gov.uk/government/publications/standard-industrial-classification-of-economic-activities-sic
+     *
      * @return array<array-key, string>
      */
     public static function getCodes(): array
