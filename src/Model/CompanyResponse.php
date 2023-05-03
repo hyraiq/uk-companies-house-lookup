@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Hyra\UkCompaniesHouseLookup\Model;
 
+use Hyra\UkCompaniesHouseLookup\SicCodes;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -48,6 +49,26 @@ final class CompanyResponse extends AbstractResponse
      */
     #[SerializedName('previous_company_names')]
     public array $previousCompanyNames = [];
+
+    /**
+     * @var array<array-key, array{code: string, description: null|string}>
+     */
+    #[SerializedName('sic_codes')]
+    public array $sicCodes = [];
+
+    /**
+     * @param string[] $sicCodes
+     */
+    public function setSicCodes(array $sicCodes): void
+    {
+        $this->sicCodes = \array_map(
+            fn (string $code): array => [
+                'code'        => $code,
+                'description' => SicCodes::getDescriptionByCode($code),
+            ],
+            $sicCodes
+        );
+    }
 
     public function isActive(): bool
     {

@@ -24,6 +24,14 @@ final class CompanyResponseTest extends BaseModelTest
         static::assertSame('england-wales', $parsed->jurisdiction);
         static::assertCount(0, $parsed->previousCompanyNames);
 
+        $expectedSicCodes = [
+            [
+                'code'        => '45190',
+                'description' => 'Sale of other motor vehicles',
+            ],
+        ];
+        static::assertSame($expectedSicCodes, $parsed->sicCodes);
+
         /** @var AddressResponse $address */
         $address = $parsed->address;
         static::assertSame('86 - 88 Uxbridge Road', $address->addressLine1);
