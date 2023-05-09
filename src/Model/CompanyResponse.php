@@ -51,7 +51,7 @@ final class CompanyResponse extends AbstractResponse
     public array $previousCompanyNames = [];
 
     /**
-     * @var array<array-key, array{code: string, description: null|string}>
+     * @var array<array-key, array{code: string, description: null|string}>|string[]
      */
     #[SerializedName('sic_codes')]
     public array $sicCodes = [];
