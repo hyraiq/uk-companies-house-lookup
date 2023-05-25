@@ -3,9 +3,8 @@
     "description": "UK business number validation and verification using the UK Companies House web services API",
     "type": "library",
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.1",
         "ext-json": "*",
-        "doctrine/annotations": "^1.0",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.2",
         "symfony/cache": "^5.0 | ^6.0",

@@ -41,13 +41,9 @@ final class CompanyResponse extends AbstractResponse
 
     /**
      * @var PreviousNamesResponse[]
-     *
-     * @Assert\All({
-     *
-     *     @Assert\Type("Hyra\UkCompaniesHouseLookup\Model\PreviousNamesResponse")
-     * })
      */
     #[SerializedName('previous_company_names')]
+    #[Assert\All(constraints: new Assert\Type(PreviousNamesResponse::class))]
     public array $previousCompanyNames = [];
 
     /**

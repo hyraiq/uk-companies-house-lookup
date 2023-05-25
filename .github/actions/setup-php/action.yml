@@ -4,9 +4,9 @@ description: Setup PHP build
 
 inputs:
     php-version:
-        description: 'PHP version to use, default to 8.0'
+        description: 'PHP version to use, default to 8.1'
         required: false
-        default: '8.0'
+        default: '8.1'
 
 runs:
     using: composite
