@@ -36,11 +36,11 @@ final class StubHttpClient implements HttpClientInterface
             (bool) \preg_match('/^\/company\/(?:\d{8}|[A-Za-z]{2}\d{6})+$/i', $url) => $this->handleCompanyRequest($url, $options),
             default                                                                 => throw new \LogicException(
                 'Not implemented: UK Companies House API client only responds to "/company/{companyNumber}"'
-            )
+            ),
         };
     }
 
-    public function stream($responses, float $timeout = null): ResponseStreamInterface
+    public function stream($responses, ?float $timeout = null): ResponseStreamInterface
     {
         throw new \LogicException('Not implemented: UK Companies House API client should only be using the request method');
     }

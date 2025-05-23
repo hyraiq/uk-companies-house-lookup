@@ -6,7 +6,7 @@ inputs:
     php-version:
         description: 'PHP version to use, default to 8.1'
         required: false
-        default: '8.1'
+        default: '8.2'
 
 runs:
     using: composite
@@ -16,20 +16,7 @@ runs:
             with:
                 php-version: ${{ inputs.php-version }}
 
-        -   id: get-composer-cache-directory
-            name: Get Composer caches directory path
-            run: echo "::set-output name=dir::$(php composer.phar config cache-files-dir)"
-            shell: bash
-
-        -   id: mount-cache-directory
-            name: Mount cache directory
-            uses: actions/cache@v2
-            with:
-                path: ${{ steps.get-composer-cache-directory.outputs.dir }}
-                key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-                restore-keys: ${{ runner.os }}-composer-
-
         -   id: install-composer-dependencies
             name: Install composer dependencies
-            run: php composer.phar install --ansi
+            run: make vendor
             shell: bash
