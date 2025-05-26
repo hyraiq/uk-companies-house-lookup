@@ -146,7 +146,7 @@ GitHub annotations in the Files view.
 $ docker compose build
 
 # Then you can install composer dependencies
-$ ocker compose run php make vendor
+$ docker compose run php make vendor
 
 # Now you can run tests and other tools
 $ docker compose run php make (fix|psalm|phpstan|phpunit)
