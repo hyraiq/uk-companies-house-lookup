@@ -58,7 +58,7 @@ final class CompanyResponse extends AbstractResponse
     public function setSicCodes(array $sicCodes): void
     {
         $this->sicCodes = \array_map(
-            fn (string $code): array => [
+            static fn (string $code): array => [
                 'code'        => $code,
                 'description' => SicCodes::getDescriptionByCode($code),
             ],

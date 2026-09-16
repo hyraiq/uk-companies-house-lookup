@@ -15,6 +15,14 @@
     </projectFiles>
 
     <issueHandlers>
+        <!-- Symfony 7.4 deprecated the Annotation\ serializer attributes, but the Attribute\ replacements only
+             exist from 6.4 and composer.json still supports ^6.0. Swap them when the floor reaches 6.4. -->
+        <DeprecatedClass>
+            <errorLevel type="suppress">
+                <directory name="src/Model"/>
+            </errorLevel>
+        </DeprecatedClass>
+
         <!-- Start Dead Code Config -->
 
         <!-- Dead code detection requires a few tricky mechanisms -->

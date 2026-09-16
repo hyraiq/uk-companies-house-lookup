@@ -46,7 +46,7 @@ abstract class BaseModelTest extends TestCase
         }
 
         $errors = \array_map(
-            fn (ConstraintViolationInterface $violation) => \sprintf(
+            static fn (ConstraintViolationInterface $violation) => \sprintf(
                 '%s: %s',
                 $violation->getPropertyPath(),
                 (string) $violation->getMessage()
@@ -81,9 +81,9 @@ abstract class BaseModelTest extends TestCase
      *
      * @psalm-template T of object
      *
-     * @psalm-return T
-     *
      * @throws ExceptionInterface
+     *
+     * @psalm-return T
      */
     private function denormalize(string | array $data, string $modelClass): object
     {
