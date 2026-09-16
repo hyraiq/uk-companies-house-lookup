@@ -54,7 +54,10 @@ final class ApiClientTest extends TestCase
         ]);
     }
 
-    public function testClientUsesInjectedBaseUri(): void
+    /**
+     * @dataProvider getBaseUriTests
+     */
+    public function testClientUsesInjectedBaseUri(string $baseApiUri, string $expectedOrigin): void
     {
         $mockResponse = new MockResponse(\json_encode(MockCompanyResponse::valid(), \JSON_THROW_ON_ERROR));
 
@@ -63,15 +66,32 @@ final class ApiClientTest extends TestCase
             Dependencies::validator(),
             new MockHttpClient($mockResponse),
             $this->apiKey,
-            'https://mock.company-information.test/'
+            $baseApiUri
         );
 
         $client->lookupNumber(self::BusinessNumber);
 
         static::assertSame(
-            \sprintf('https://mock.company-information.test/company/%s', self::BusinessNumber),
+            \sprintf('%s/company/%s', $expectedOrigin, self::BusinessNumber),
             $mockResponse->getRequestUrl()
         );
+    }
+
+    /**
+     * Only the scheme, host and port of the base URI survive, because the client requests the absolute path
+     * "/company/{number}". Any path on the base URI is dropped.
+     *
+     * @return array<array-key, array<array-key, string>>
+     */
+    public function getBaseUriTests(): array
+    {
+        return [
+            'trailing slash'    => ['https://mock.company-information.test/', 'https://mock.company-information.test'],
+            'no trailing slash' => ['https://mock.company-information.test', 'https://mock.company-information.test'],
+            'host and port'     => ['http://localhost:3007/', 'http://localhost:3007'],
+            'path prefix'       => ['http://localhost:3007/uk/', 'http://localhost:3007'],
+            'path, no slash'    => ['http://localhost:3007/uk', 'http://localhost:3007'],
+        ];
     }
 
     public function testLookupNumberInvalidNumberDoesNotUseApi(): void

@@ -92,7 +92,19 @@ server in CI, pass the base URI as the final argument:
 $apiClient = new ApiClient($denormalizer, $validator, $httpClient, $apiKey, 'http://localhost:3007/');
 ```
 
-With Symfony, set the same value through the `$baseApiUri` argument in `services.yaml`.
+With Symfony, set the same value in `services.yaml`:
+
+```yaml
+Hyra\UkCompaniesHouseLookup\ApiClient:
+    arguments:
+        $apiKey: "%env(UK_COMPANIES_HOUSE_API_KEY)%"
+        $baseApiUri: "%env(UK_COMPANIES_HOUSE_API_URI)%"
+```
+
+**The base URI must point at a server root.** Companies are requested from the absolute path `/company/{number}`, so
+only the scheme, host and port of the base URI are used. A path is silently dropped: `http://localhost:3007/uk/` sends
+requests to `http://localhost:3007/company/{number}`, not `http://localhost:3007/uk/company/{number}`. A trailing slash
+makes no difference either way.
 
 ### Looking up a business number
 
