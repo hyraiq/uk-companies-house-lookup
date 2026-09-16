@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hyra\UkCompaniesHouseLookup\Model;
 
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 
 final class AddressResponse extends AbstractResponse
 {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyra\UkCompaniesHouseLookup\Model;
 
 use Hyra\UkCompaniesHouseLookup\SicCodes;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
