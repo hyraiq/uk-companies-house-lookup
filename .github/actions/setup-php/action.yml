@@ -15,8 +15,9 @@ runs:
             uses: shivammathur/setup-php@v2
             with:
                 php-version: ${{ inputs.php-version }}
+                tools: composer:v2
 
         -   id: install-composer-dependencies
             name: Install composer dependencies
-            run: make vendor
+            run: make vendor COMPOSER_BIN=composer
             shell: bash
