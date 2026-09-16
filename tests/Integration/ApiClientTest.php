@@ -16,6 +16,8 @@ use Hyra\UkCompaniesHouseLookup\SicCodes;
 use Hyra\UkCompaniesHouseLookup\Stubs\MockCompanyResponse;
 use Hyra\UkCompaniesHouseLookup\Stubs\StubHttpClient;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 
 final class ApiClientTest extends TestCase
 {
@@ -50,6 +52,46 @@ final class ApiClientTest extends TestCase
             'base_uri'   => 'https://api.company-information.service.gov.uk/',
             'auth_basic' => [$this->apiKey],
         ]);
+    }
+
+    /**
+     * @dataProvider getBaseUriTests
+     */
+    public function testClientUsesInjectedBaseUri(string $baseApiUri, string $expectedOrigin): void
+    {
+        $mockResponse = new MockResponse(\json_encode(MockCompanyResponse::valid(), \JSON_THROW_ON_ERROR));
+
+        $client = new ApiClient(
+            Dependencies::serializer(),
+            Dependencies::validator(),
+            new MockHttpClient($mockResponse),
+            $this->apiKey,
+            $baseApiUri
+        );
+
+        $client->lookupNumber(self::BusinessNumber);
+
+        static::assertSame(
+            \sprintf('%s/company/%s', $expectedOrigin, self::BusinessNumber),
+            $mockResponse->getRequestUrl()
+        );
+    }
+
+    /**
+     * Only the scheme, host and port of the base URI survive, because the client requests the absolute path
+     * "/company/{number}". Any path on the base URI is dropped.
+     *
+     * @return array<array-key, array<array-key, string>>
+     */
+    public function getBaseUriTests(): array
+    {
+        return [
+            'trailing slash'    => ['https://mock.company-information.test/', 'https://mock.company-information.test'],
+            'no trailing slash' => ['https://mock.company-information.test', 'https://mock.company-information.test'],
+            'host and port'     => ['http://localhost:3007/', 'http://localhost:3007'],
+            'path prefix'       => ['http://localhost:3007/uk/', 'http://localhost:3007'],
+            'path, no slash'    => ['http://localhost:3007/uk', 'http://localhost:3007'],
+        ];
     }
 
     public function testLookupNumberInvalidNumberDoesNotUseApi(): void

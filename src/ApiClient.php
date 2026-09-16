@@ -27,9 +27,10 @@ final class ApiClient implements ApiClientInterface
         private ValidatorInterface $validator,
         HttpClientInterface $client,
         string $apiKey,
+        string $baseApiUri = 'https://api.company-information.service.gov.uk/',
     ) {
         $this->client = $client->withOptions([
-            'base_uri'   => 'https://api.company-information.service.gov.uk/',
+            'base_uri'   => $baseApiUri,
             'auth_basic' => [$apiKey],
         ]);
     }
