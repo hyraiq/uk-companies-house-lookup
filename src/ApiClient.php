@@ -64,9 +64,9 @@ final class ApiClient implements ApiClientInterface
      *
      * @psalm-param    class-string<T> $type
      *
-     * @psalm-return   T
-     *
      * @throws UnexpectedResponseException
+     *
+     * @psalm-return   T
      */
     private function decodeResponse(string $response, string $type): object
     {
@@ -84,7 +84,7 @@ final class ApiClient implements ApiClientInterface
 
         if (0 < \count($violations)) {
             $errors = \array_map(
-                fn (ConstraintViolationInterface $violation) => $violation->getPropertyPath(),
+                static fn (ConstraintViolationInterface $violation) => $violation->getPropertyPath(),
                 \iterator_to_array($violations)
             );
 

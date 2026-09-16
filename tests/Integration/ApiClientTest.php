@@ -140,7 +140,7 @@ final class ApiClientTest extends TestCase
 
         // The setter for sic_codes augments the response to add a description, so we have to do that here too
         $mockResponse['sic_codes'] = \array_map(
-            fn (string $code): array => [
+            static fn (string $code): array => [
                 'code'        => $code,
                 'description' => SicCodes::getDescriptionByCode($code),
             ],

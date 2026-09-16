@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hyra\UkCompaniesHouseLookup\Model;
 
 use Hyra\UkCompaniesHouseLookup\SicCodes;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -58,7 +58,7 @@ final class CompanyResponse extends AbstractResponse
     public function setSicCodes(array $sicCodes): void
     {
         $this->sicCodes = \array_map(
-            fn (string $code): array => [
+            static fn (string $code): array => [
                 'code'        => $code,
                 'description' => SicCodes::getDescriptionByCode($code),
             ],
