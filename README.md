@@ -83,6 +83,17 @@ $validator = Dependencies::validator();
 $apiClient = new ApiClient($denormalizer, $validator, $httpClient, $apiKey);
 ```
 
+### Overriding the API base URI
+
+The client calls the live Companies House API by default. If you need to send requests somewhere else, such as a mock
+server in CI, pass the base URI as the final argument:
+
+```php
+$apiClient = new ApiClient($denormalizer, $validator, $httpClient, $apiKey, 'http://localhost:3007/');
+```
+
+With Symfony, set the same value through the `$baseApiUri` argument in `services.yaml`.
+
 ### Looking up a business number
 
 Once you have configured your `ApiClient` you can look up an individual CRN. Note, this will validate the CRN before

@@ -16,6 +16,8 @@ use Hyra\UkCompaniesHouseLookup\SicCodes;
 use Hyra\UkCompaniesHouseLookup\Stubs\MockCompanyResponse;
 use Hyra\UkCompaniesHouseLookup\Stubs\StubHttpClient;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 
 final class ApiClientTest extends TestCase
 {
@@ -50,6 +52,26 @@ final class ApiClientTest extends TestCase
             'base_uri'   => 'https://api.company-information.service.gov.uk/',
             'auth_basic' => [$this->apiKey],
         ]);
+    }
+
+    public function testClientUsesInjectedBaseUri(): void
+    {
+        $mockResponse = new MockResponse(\json_encode(MockCompanyResponse::valid(), \JSON_THROW_ON_ERROR));
+
+        $client = new ApiClient(
+            Dependencies::serializer(),
+            Dependencies::validator(),
+            new MockHttpClient($mockResponse),
+            $this->apiKey,
+            'https://mock.company-information.test/'
+        );
+
+        $client->lookupNumber(self::BusinessNumber);
+
+        static::assertSame(
+            \sprintf('https://mock.company-information.test/company/%s', self::BusinessNumber),
+            $mockResponse->getRequestUrl()
+        );
     }
 
     public function testLookupNumberInvalidNumberDoesNotUseApi(): void
