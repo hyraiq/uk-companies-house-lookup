@@ -1,4 +1,4 @@
-COMPOSER_BIN ?= php ./composer.phar
+COMPOSER_BIN ?= composer
 
 .PHONY: vendor
 vendor:

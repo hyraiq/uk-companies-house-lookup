@@ -168,7 +168,8 @@ GitHub annotations in the Files view.
 # First build the required docker container
 $ docker compose build
 
-# Then you can install composer dependencies
+# Then you can install composer dependencies (the image includes Composer 2;
+# to run `make vendor` on your host instead, you need Composer 2 on your PATH)
 $ docker compose run php make vendor
 
 # Now you can run tests and other tools
