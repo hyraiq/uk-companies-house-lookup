@@ -1,4 +1,4 @@
-FROM php:8.2-bullseye
+FROM php:8.2-bookworm
 
 RUN apt-get update -qq \
     && apt-get install -qq git libzip-dev unzip \
@@ -10,5 +10,7 @@ RUN docker-php-ext-install \
 
 RUN pecl install xdebug > /dev/null \
     && docker-php-ext-enable xdebug > /dev/null
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 CMD ["bash"]

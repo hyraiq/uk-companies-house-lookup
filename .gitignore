@@ -1,4 +1,5 @@
 /vendor/
+/composer.phar
 # Ignore the .lock files because this is a library
 composer.lock
 symfony.lock
